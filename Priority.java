@@ -4,8 +4,8 @@ import java.util.Vector;
 
 public class Priority {
 
-   Vector<Process> queue;
-    Vector<Process> PPQ_queue;
+    Vector<Process> queue;//to store all process
+    Vector<Process> PPQ_queue;//priority queue
     int currentTime;
 
     public Priority()
@@ -15,10 +15,13 @@ public class Priority {
         currentTime=0;
     }
 
+    //to set process
    public void Add(Process p)
    {
        queue.add(p);
    }
+
+   //to check if process finish or not
    public boolean chickFinish(Process p)
    {
        if(p.getBurst_time()==0)
@@ -26,6 +29,8 @@ public class Priority {
        else
            return false;
    }
+
+   //to check if process is highest priority
    public boolean checkPriority(Process p,int curTime)
    {
        int chickPri;
@@ -36,6 +41,7 @@ public class Priority {
        chickPri=p.getPriority();
        for(int i=0;i<queue.size();i++)
        {
+           //check if find process with higher than priority
            if(!chickFinish(queue.get(i))&&queue.get(i).getArrival_time()<=curTime&&queue.get(i).getPriority()<=chickPri){
               chickPri=queue.get(i).getPriority();
            }
@@ -53,6 +59,7 @@ public class Priority {
    {
        int total_wait=0,total_turnaround=0;
        System.out.println( "-------------- Priority Scheduling --------------");
+
        for(int i=0;i<PPQ_queue.size();i++)
        {
            PPQ_queue.get(i).turnaround_Time=PPQ_queue.get(i).turnaround_Time-PPQ_queue.get(i).getOriginalAT();
@@ -72,17 +79,20 @@ public class Priority {
        for(int i=0;i<queue.size();i++) {
            if (checkPriority(queue.get(i), currentTime)) {
 
+               //if  first entry to process
                if (queue.get(i).getBurst_time() == queue.get(i).getOriginalBT()) {
                    queue.get(i).setArrival_time(currentTime);
                }
                queue.get(i).setBurst_time(queue.get(i).getBurst_time() - 1);
                currentTime++;
+               //if process finished store in priority queue
                if (chickFinish(queue.get(i))) {
                    queue.get(i).setTurnaround_Time(currentTime);
                    PPQ_queue.add(queue.get(i));
                }
                i = 0;
            }
+           //to avoid starvation problem
            if(currentTime%15==0)
            {
                if(!chickFinish(queue.get(i)))
