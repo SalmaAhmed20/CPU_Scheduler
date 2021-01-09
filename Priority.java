@@ -34,15 +34,12 @@ public class Priority {
    public boolean checkPriority(Process p,int curTime)
    {
        int chickPri;
-       if(PPQ_queue.size()==0&&p.getArrival_time()<=curTime)
-       {
-           return true;
-       }
        chickPri=p.getPriority();
+
        for(int i=0;i<queue.size();i++)
        {
            //check if find process with higher than priority
-           if(!chickFinish(queue.get(i))&&queue.get(i).getArrival_time()<=curTime&&queue.get(i).getPriority()<=chickPri){
+           if(!chickFinish(queue.get(i))&&queue.get(i).getArrival_time()<=curTime&&queue.get(i).getPriority()<chickPri){
               chickPri=queue.get(i).getPriority();
            }
 
@@ -73,36 +70,36 @@ public class Priority {
        System.out.println("Average Turn Around Time = " + total_turnaround/(float) PPQ_queue.size()+" unit ");
    }
 
-   public void PPS()
-   {
+   public void PPS() {
+       while (queue.size() != PPQ_queue.size()) {
+           for (int i = 0; i < queue.size(); i++) {
 
-       for(int i=0;i<queue.size();i++) {
-           if (checkPriority(queue.get(i), currentTime)) {
+               //to avoid starvation problem
+               if (currentTime % 20 == 0 && currentTime != 0) {
+                   if (!chickFinish(queue.get(i)) && queue.get(i).getPriority() != 0) {
+                       queue.get(i).setPriority(queue.get(i).getPriority() - 1);
+                   }
+               }
 
-               //if  first entry to process
-               if (queue.get(i).getBurst_time() == queue.get(i).getOriginalBT()) {
-                   queue.get(i).setArrival_time(currentTime);
+               if (checkPriority(queue.get(i), currentTime)) {
+                   //if  first entry to process
+                   if (queue.get(i).getBurst_time() == queue.get(i).getOriginalBT()) {
+                       queue.get(i).setArrival_time(currentTime);
+                   }
+                   queue.get(i).setBurst_time(queue.get(i).getBurst_time() - 1);
+                   currentTime++;
+                   //if process finished store in priority queue
+                   if (chickFinish(queue.get(i))) {
+                       queue.get(i).setTurnaround_Time(currentTime);
+                       PPQ_queue.add(queue.get(i));
+                   }
+                   i = -1;
                }
-               queue.get(i).setBurst_time(queue.get(i).getBurst_time() - 1);
-               currentTime++;
-               //if process finished store in priority queue
-               if (chickFinish(queue.get(i))) {
-                   queue.get(i).setTurnaround_Time(currentTime);
-                   PPQ_queue.add(queue.get(i));
-               }
-               i = 0;
+
            }
-           //to avoid starvation problem
-           if(currentTime%15==0)
-           {
-               if(!chickFinish(queue.get(i))&&queue.get(i).getPriority()!=0)
-               {
-                   queue.get(i).setPriority(queue.get(i).getPriority()-1);
-               }
+           currentTime++;
 
-           }
        }
-
    }
 
 }
