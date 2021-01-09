@@ -95,7 +95,7 @@ public class Priority {
            //to avoid starvation problem
            if(currentTime%15==0)
            {
-               if(!chickFinish(queue.get(i)))
+               if(!chickFinish(queue.get(i))&&queue.get(i).getPriority()!=0)
                {
                    queue.get(i).setPriority(queue.get(i).getPriority()-1);
                }
