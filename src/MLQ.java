@@ -16,8 +16,8 @@ public class MLQ {
         for (int i = 1; i < p.size(); i++) {
             var Process = p.get(i);
             int j;
-            for ( j = i-1; j >=0 && (Process.getArrival_time() < p.get(i).getArrival_time()) ; j--)
-                p.set(j+1,p.get(i));
+            for ( j = i-1; j >=0 && (Process.getArrival_time() < p.get(j).getArrival_time()) ; j--)
+                p.set(j+1,p.get(j));
             p.set(j+1,Process);
         }
 
@@ -48,7 +48,7 @@ public class MLQ {
         System.out.println("Average Waiting Time = " + TotalWait/(float) Process.size()+" unit ");
         System.out.println("Average Turn Around Time = " + TotalTurnAround/(float) Process.size()+" unit ");
     }
-    public boolean AddtoSch(Process p)
+    public boolean Add( Process p)
     {
         if (p.getQueueNum() == 1)
             return Foreground.add(p);

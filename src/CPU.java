@@ -28,13 +28,18 @@ public class CPU {
         int time = input.nextInt();
         MLQ multi =new MLQ();
         multi.setTimeQuantum(time);
+        Priority pro = new Priority();
         for (int i = 0; i <P.size() ; i++) {
             //.add For SJF
             //.add For Round Robin
-            //.add For priority Queue
-            multi.AddtoSch(P.get(i));
+
+            pro.Add(P.get(i));
+            multi.Add(P.get(i));
 
         }
+        pro.PPS();
+        pro.displayTime();
+
         multi.Algorithm();
         multi.Statistics_MLQ();
     }
