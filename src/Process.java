@@ -1,33 +1,43 @@
 public class Process {
+    /*common Attributes */
     private String name;
     private int burst_time;
     private int arrival_time;
-    private int priority;
-    private int quantum_time;
     int waiting_Time;
     int turnaround_Time;
-    int stoppedTime;
+    /*need in Priority Queue Algorithm*/
+    private int priority;
 
+    private int stoppedTime ;
+    /*Need in multilevel statistic*/
+    private int QueueNum;
+    private  int originalAT;
+    private  int OriginalBT;
+
+
+    @Override
     public String toString() {
-        String var = this.getName();
-        return String.valueOf(var + " : " + this.getPriority());
+        return "Process{" +
+                "name='" + name + '\'' +
+                ", burst_time=" + OriginalBT +
+                ", arrival_time=" + originalAT +
+                ", waiting_Time=" + waiting_Time +
+                ", turnaround_Time=" + turnaround_Time +
+                '}';
     }
 
-    public Process(String name, int burst_time, int arrival_time, int priority) {
+    public Process( String name, int burst_time, int arrival_time, int priority,int num) {
         this.name = name;
         this.burst_time = burst_time;
         this.arrival_time = arrival_time;
         this.setPriority(priority);
+        this.stoppedTime=-1;
+        /*need in Multilevel Queue*/
+        this.QueueNum=num;
+        this.originalAT=arrival_time;
+        this.OriginalBT=burst_time;
     }
 
-    public Process(String name, int burst_time, int arrival_time, int priority, int quantum_time) {
-        this.name = name;
-        this.setBurst_time(burst_time);
-        this.arrival_time = arrival_time;
-        this.setPriority(priority);
-        this.setQuantum_time(quantum_time);
-        this.setTurnaround_Time(burst_time);
-    }
 
     public String getName() {
         return this.name;
@@ -45,14 +55,6 @@ public class Process {
         return this.priority;
     }
 
-    public int getQuantum_time() {
-        return this.quantum_time;
-    }
-
-    public void setQuantum_time(int quantum_time) {
-        this.quantum_time = quantum_time;
-    }
-
     public void setBurst_time(int burst_time) {
         this.burst_time = burst_time;
     }
@@ -67,5 +69,41 @@ public class Process {
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    public int getQueueNum() {
+        return QueueNum;
+    }
+
+    public void setQueueNum( int queueNum ) {
+        QueueNum = queueNum;
+    }
+
+    public int getStoppedTime() {
+        return stoppedTime;
+    }
+
+    public void setStoppedTime( int stoppedTime ) {
+        this.stoppedTime = stoppedTime;
+    }
+
+    public void setArrival_time( int arrival_time ) {
+        this.arrival_time = arrival_time;
+    }
+
+    public int getOriginalAT() {
+        return originalAT;
+    }
+
+    public void setOriginalAT( int originalAT ) {
+        this.originalAT = originalAT;
+    }
+
+    public int getOriginalBT() {
+        return OriginalBT;
+    }
+
+    public void setOriginalBT( int originalBT ) {
+        OriginalBT = originalBT;
     }
 }
