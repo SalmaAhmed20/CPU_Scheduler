@@ -46,7 +46,7 @@ public class MLQ {
             System.out.println(process);
         }
         System.out.println("Average Waiting Time = " + TotalWait/(float) Process.size()+" unit ");
-        System.out.println("Average Waiting Time = " + TotalTurnAround/(float) Process.size()+" unit ");
+        System.out.println("Average Turn Around Time = " + TotalTurnAround/(float) Process.size()+" unit ");
     }
     public boolean AddtoSch(Process p)
     {
