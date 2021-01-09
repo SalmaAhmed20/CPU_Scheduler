@@ -29,12 +29,17 @@ public class CPU {
         MLQ multi =new MLQ();
         multi.setTimeQuantum(time);
         Priority pro = new Priority();
+        RoundRobin RR = new RoundRobin();
+        RR.setContextSwitch(Context);
+        RR.setQuantumTime(time);
         for (int i = 0; i <P.size() ; i++) {
             //.add For SJF
             //.add For Round Robin
 
             pro.Add(P.get(i));
             multi.Add(P.get(i));
+            
+            RR.setProcess(P.get(i));
 
         }
         pro.PPS();
@@ -42,5 +47,8 @@ public class CPU {
 
         multi.Algorithm();
         multi.Statistics_MLQ();
+        
+        RR.roundRobinAlgorithm();
+        RR.printStatistics();
     }
 }

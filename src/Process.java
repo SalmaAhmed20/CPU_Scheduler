@@ -13,6 +13,10 @@ public class Process {
     private int QueueNum;
     private  int originalAT;
     private  int OriginalBT;
+    
+    /*needed in RoundRobin algorithm*/
+    private int completionTime;
+    private int tempBurstTime;
 
 
     @Override
@@ -26,16 +30,13 @@ public class Process {
                 '}';
     }
 
-    public Process( String name, int burst_time, int arrival_time, int priority,int num) {
+    public Process( String name, int burst_time, int arrival_time , int Pri , int Queuenum) {
         this.name = name;
         this.burst_time = burst_time;
         this.arrival_time = arrival_time;
-        this.setPriority(priority);
-        this.stoppedTime=-1;
-        /*need in Multilevel Queue*/
-        this.QueueNum=num;
-        this.originalAT=arrival_time;
-        this.OriginalBT=burst_time;
+        this.tempBurstTime = this.burst_time;
+        this.priority = Pri;
+        this.QueueNum = Queuenum;
     }
 
 
@@ -106,4 +107,17 @@ public class Process {
     public void setOriginalBT( int originalBT ) {
         OriginalBT = originalBT;
     }
+
+    
+    
+	public int getCompletionTime() {
+		return completionTime;
+	}
+
+	public void setCompletionTime(int completionTime) {/*For the RoundRobin*/
+		this.completionTime = completionTime;
+		this.turnaround_Time = this.completionTime - this.arrival_time;
+		this.waiting_Time = this.turnaround_Time - this.tempBurstTime;
+	}
+    
 }
