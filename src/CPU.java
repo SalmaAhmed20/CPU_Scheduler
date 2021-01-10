@@ -20,7 +20,7 @@ public class CPU {
             System.out.print("P"+(i+1)+" Queue Number : ");
             int Queuenum = input.nextInt();
             System.out.println("-------------------------------------------");
-            RR.setProcess(new Process(("P "+(i+1)),Burst,arrival,Pri,Queuenum));
+            RR.Add(new Process(("P"+(i+1)),Burst,arrival,Pri,Queuenum));
             pro.Add(new Process(("P "+(i+1)),Burst,arrival,Pri,Queuenum));
             multi.Add(new Process(("P "+(i+1)),Burst,arrival,Pri,Queuenum));
 
@@ -34,7 +34,8 @@ public class CPU {
 
         RR.setContextSwitch(Context);
         RR.setQuantumTime(time);
-
+        
+        System.out.println("----------------------------------------RoundRobin Algorithm------------------------------");
         RR.roundRobinAlgorithm();
         RR.printStatistics();
 

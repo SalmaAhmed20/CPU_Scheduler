@@ -1,5 +1,3 @@
-
-
 import java.util.ArrayList;
 
 /*
@@ -30,7 +28,7 @@ public class RoundRobin {
 	
 	}
 
-	public void setProcess(Process process) {
+	public void Add(Process process) {
 		processes.add(process);
 	}
 
@@ -109,8 +107,14 @@ public class RoundRobin {
 		averageTurnArround = turnArroundSum / stoppedProcesses.size();
 		System.out.println("Average turnArround time = " + averageTurnArround);
 		System.out.println("******************************************");
+		System.out.println("WaitingTimes: ");
 		for(int i=0 ; i<stoppedProcesses.size() ; i++) {
 			System.out.println(stoppedProcesses.get(i).getName() + " " + stoppedProcesses.get(i).waiting_Time);
+		}
+		System.out.println("******************************************");
+		System.out.println("TurnArroundTimes: ");
+		for(int i=0 ; i<stoppedProcesses.size() ; i++) {
+			System.out.println(stoppedProcesses.get(i).getName() + " " + stoppedProcesses.get(i).turnaround_Time);
 		}
 	}
 }
