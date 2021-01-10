@@ -36,7 +36,12 @@ public class Process {
         this.arrival_time = arrival_time;
         this.tempBurstTime = this.burst_time;
         this.priority = Pri;
-        this.QueueNum = Queuenum;
+
+        /*need in Multilevel Queue*/
+        this.QueueNum=Queuenum;
+        this.originalAT=arrival_time;
+        this.OriginalBT=burst_time;
+
     }
 
 

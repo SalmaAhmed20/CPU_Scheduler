@@ -59,6 +59,7 @@ public class MLQ {
     }
     public void Algorithm()
     {
+        String temp = "";
         //Loop until all processes in 2 Queues executed
         while (!Foreground.isEmpty() || !background.isEmpty())
         {
@@ -82,6 +83,10 @@ public class MLQ {
                         Foreground.get(i).setBurst_time(Foreground.get(i).getBurst_time() - 1);
                         Foreground.get(i).setArrival_time(currenttime);
                     }
+                    System.out.println("***********************************************");
+                    temp = (Foreground.get(i).getName() + "\n Burst Time = " + Foreground.get(i).getBurst_time()
+                            + "\n Arrival Time = " + Foreground.get(i).getArrival_time() + "\n, TIME = " + currenttime);
+                    System.out.println(temp);
 
                     if ( Foreground.get(i).getBurst_time() == 0 ) {
                         Foreground.get(i).setTurnaround_Time(currenttime);
@@ -90,6 +95,7 @@ public class MLQ {
                     }
                 }
             }
+            temp="";
             //for First come first service Queue
             for (int i = 0; i < background.size()  ; i++) {
                 if ( background.get(i).getArrival_time() <= currenttime
@@ -103,6 +109,9 @@ public class MLQ {
                         background.get(i).setBurst_time(background.get(i).getBurst_time() - 1);
                         background.get(i).setArrival_time(currenttime);
                  }
+                    System.out.println("***********************************************");
+                    System.out.println(background.get(i).getName() + "\n Burst Time = " + background.get(i).getBurst_time()
+                            + "\n Arrival Time = " + background.get(i).getArrival_time() + "\n, TIME = " + currenttime);
                     if ( background.get(i).getBurst_time() == 0 ) {
                         background.get(i).setTurnaround_Time(currenttime);
                         Process.add(background.remove(i));
@@ -113,6 +122,7 @@ public class MLQ {
             }
 
         }
+        System.out.println(temp);
     }
 
     public void setTimeQuantum( int timeQuantum ) {
