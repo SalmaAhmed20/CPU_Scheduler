@@ -5,9 +5,11 @@ public class CPU {
     public static void main( String[] args ) {
         Scanner input = new Scanner(System.in);
         //Objects for SJF,RR,Priority Queue
-        MLQ multi =new MLQ();
         Priority pro = new Priority();
         RoundRobin RR = new RoundRobin();
+        SRTF srtf = new SRTF();
+        MLQ multi =new MLQ();
+
         System.out.print("Enter number of Process you want to Execute: ");
         int num = input.nextInt();
         for (int i = 0; i < num ; i++) {
@@ -20,6 +22,8 @@ public class CPU {
             System.out.print("P"+(i+1)+" Queue Number : ");
             int Queuenum = input.nextInt();
             System.out.println("-------------------------------------------");
+            //-----------------------------//
+            srtf.Add(new Process(("P "+(i+1)),Burst,arrival,Pri,Queuenum));
             RR.Add(new Process(("P"+(i+1)),Burst,arrival,Pri,Queuenum));
             pro.Add(new Process(("P "+(i+1)),Burst,arrival,Pri,Queuenum));
             multi.Add(new Process(("P "+(i+1)),Burst,arrival,Pri,Queuenum));
@@ -31,6 +35,10 @@ public class CPU {
         System.out.print(" Time Quantum for RR, MLQ : ");
         int time = input.nextInt();
         multi.setTimeQuantum(time);
+        srtf.setContext_switch(Context);
+
+        srtf.Algorithm();
+        srtf.Statistic();
 
         RR.setContextSwitch(Context);
         RR.setQuantumTime(time);

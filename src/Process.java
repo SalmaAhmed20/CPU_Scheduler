@@ -5,6 +5,9 @@ public class Process {
     private int arrival_time;
     int waiting_Time;
     int turnaround_Time;
+    /*need in SRTF*/
+    boolean flag ;
+    int completeTime;
     /*need in Priority Queue Algorithm*/
     private int priority;
 
@@ -41,6 +44,8 @@ public class Process {
         this.QueueNum=Queuenum;
         this.originalAT=arrival_time;
         this.OriginalBT=burst_time;
+        /*flag */
+        flag = false;
 
     }
 

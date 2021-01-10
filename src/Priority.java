@@ -54,7 +54,7 @@ public class Priority {
 
    public void displayTime()
    {
-       int total_wait=0,total_turnaround=0;
+       float total_wait=0,total_turnaround=0;
        System.out.println( "-------------- Priority Scheduling --------------");
 
        for(int i=0;i<PPQ_queue.size();i++)
